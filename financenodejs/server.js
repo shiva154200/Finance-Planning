@@ -14,42 +14,43 @@ app.get("/", (req, res) => {
 
 app.post("/generate-plan", async (req, res) => {
     try {
+       const customer = {
+    customer_id: "TEST_NODE_002",
 
-        const customer = {
-            customer_id: "TEST_NODE_001",
-            age: 30,
-            occupation: "Software Engineer",
-            dependents: 1,
+    age: 50,
+    occupation: "Teacher",
+    dependents: 2,
 
-            monthly_income: 100000,
-            monthly_expenses: 40000,
-            monthly_debt_payment: 10000,
+    monthly_income: 90000,
+    monthly_expenses: 45000,
+    monthly_debt_payment: 5000,
 
-            cash_savings: 300000,
-            existing_investments: 500000,
-            property_value: 0,
-            other_assets: 100000,
+    cash_savings: 800000,
+    existing_investments: 600000,
+    property_value: 2500000,
+    other_assets: 200000,
 
-            total_assets: 900000,
-            total_liabilities: 200000,
+    total_assets: 4100000,
+    total_liabilities: 500000,
 
-            emergency_fund: 200000,
-            insurance_coverage: 1000000,
+    emergency_fund: 500000,
+    insurance_coverage: 2500000,
 
-            credit_score: 750,
+    credit_score: 780,
 
-            risk_tolerance: "Moderate",
-            investment_experience: "Intermediate",
-            risk_score: 65,
+    risk_tolerance: "Conservative",
+    investment_experience: "Beginner",
+    risk_score: 30,
 
-            financial_goal: "Wealth Creation",
-            goal_amount: 5000000,
-            current_goal_savings: 500000,
+    financial_goal: "House Renovation",
+    goal_amount: 3000000,
+    current_goal_savings: 1000000,
 
-            time_horizon_years: 10,
+    time_horizon_years: 3,
 
-            preferred_investment: "Equity"
-        };
+    preferred_investment: "FD"
+};
+       
 
         const response = await axios.post(
             "http://127.0.0.1:8000/generate-plan",

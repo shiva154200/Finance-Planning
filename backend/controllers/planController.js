@@ -16,6 +16,8 @@ const generatePlan = async (req, res) => {
             customerData
         );
 
+        
+
         const geminiAnalysis = await analyzeFinancialPlan(mlResult);
 
         res.status(200).json({

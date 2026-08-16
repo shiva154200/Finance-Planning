@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import { useNavigate } from "react-router-dom";
 import { Card, CardContent, CardHeader, CardTitle, CardDescription, CardFooter, Button, Input, Label, Select, Progress } from "../components/ui";
@@ -20,33 +20,42 @@ const STEPS = [
   { id: "goals", title: "Financial Goals" },
 ];
 
-export const FormPage = ({ onComplete }) => {
+export const DEFAULT_FORM_DATA = {
+  age: 30,
+  occupation: "Software Engineer",
+  dependents: 0,
+  monthly_income: 100000,
+  monthly_expenses: 40000,
+  monthly_debt_payment: 10000,
+  cash_savings: 500000,
+  existing_investments: 1000000,
+  property_value: 0,
+  other_assets: 0,
+  total_liabilities: 500000,
+  emergency_fund: 200000,
+  insurance_coverage: 5000000,
+  credit_score: 750,
+  risk_tolerance: "Moderate",
+  investment_experience: "Intermediate",
+  financial_goal: "Retirement",
+  goal_amount: 50000000,
+  current_goal_savings: 1000000,
+  time_horizon_years: 20,
+  preferred_investment: "Mutual Funds",
+};
+
+export const FormPage = ({ onComplete, initialFormData }) => {
   const navigate = useNavigate();
   const [currentStep, setCurrentStep] = useState(0);
   const [isSubmitting, setIsSubmitting] = useState(false);
-  const [formData, setFormData] = useState({
-    age: 30,
-    occupation: "Software Engineer",
-    dependents: 0,
-    monthly_income: 100000,
-    monthly_expenses: 40000,
-    monthly_debt_payment: 10000,
-    cash_savings: 500000,
-    existing_investments: 1000000,
-    property_value: 0,
-    other_assets: 0,
-    total_liabilities: 500000,
-    emergency_fund: 200000,
-    insurance_coverage: 5000000,
-    credit_score: 750,
-    risk_tolerance: "Moderate",
-    investment_experience: "Intermediate",
-    financial_goal: "Retirement",
-    goal_amount: 50000000,
-    current_goal_savings: 1000000,
-    time_horizon_years: 20,
-    preferred_investment: "Mutual Funds",
-  });
+  const [formData, setFormData] = useState(initialFormData ?? DEFAULT_FORM_DATA);
+
+  useEffect(() => {
+    if (initialFormData) {
+      setFormData(initialFormData);
+      setCurrentStep(0);
+    }
+  }, [initialFormData]);
 
   const handleNext = () => {
     if (currentStep < STEPS.length - 1) {
@@ -96,7 +105,7 @@ export const FormPage = ({ onComplete }) => {
       };
 
       const result = await generateFinancialPlan(payload);
-      onComplete(result);
+      onComplete(result, formData);
       navigate("/dashboard");
     } catch (error) {
       alert("Error generating plan: " + error.message);

@@ -1,7 +1,7 @@
 import React from "react";
 import { Card, CardContent, CardHeader, CardTitle, CardDescription } from "../components/ui";
 import { PieChart, Pie, Cell, Tooltip, ResponsiveContainer, BarChart, Bar, XAxis, YAxis, CartesianGrid, Legend } from "recharts";
-import { ArrowLeft, TrendingUp, AlertTriangle, Target, Briefcase, BrainCircuit, CheckCircle2, XCircle } from "lucide-react";
+import { ArrowLeft, TrendingUp, AlertTriangle, Target, Briefcase, BrainCircuit, CheckCircle2, XCircle, Pencil } from "lucide-react";
 import { useNavigate } from "react-router-dom";
 import { Button } from "../components/ui";
 import { motion } from "framer-motion";
@@ -79,6 +79,13 @@ export const DashboardPage = ({ data, onReset }) => {
             </div>
           </div>
           <div className="flex items-center gap-3 w-full sm:w-auto">
+            <Button
+              variant="outline"
+              onClick={() => navigate("/form")}
+              className="flex-1 sm:flex-none cursor-pointer"
+            >
+              <Pencil className="h-4 w-4 mr-2" /> Edit Profile
+            </Button>
             <Button variant="outline" onClick={() => { onReset(); navigate("/form"); }} className="flex-1 sm:flex-none cursor-pointer">
               <ArrowLeft className="h-4 w-4 mr-2" /> Start Over
             </Button>

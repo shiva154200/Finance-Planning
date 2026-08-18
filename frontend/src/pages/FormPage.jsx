@@ -75,17 +75,29 @@ export const FormPage = ({ onComplete, initialFormData }) => {
     setFormData((prev) => ({ ...prev, [field]: value }));
   };
 
-  const handleSubmit = async () => {
+ const handleSubmit = async () => {
     setIsSubmitting(true);
+
     try {
+      const riskScoreMap = {
+        "Conservative": 20,
+        "Moderately Conservative": 40,
+        "Moderate": 60,
+        "Moderately Aggressive": 80,
+        "Aggressive": 90
+      };
+
       const payload = {
         ...formData,
+
         total_assets:
           Number(formData.cash_savings) +
           Number(formData.existing_investments) +
           Number(formData.property_value) +
           Number(formData.other_assets),
-        risk_score: formData.risk_tolerance === "Aggressive" ? 80 : formData.risk_tolerance === "Moderate" ? 50 : 20,
+
+        risk_score: riskScoreMap[formData.risk_tolerance],
+
         age: Number(formData.age),
         dependents: Number(formData.dependents),
         monthly_income: Number(formData.monthly_income),
@@ -107,11 +119,12 @@ export const FormPage = ({ onComplete, initialFormData }) => {
       const result = await generateFinancialPlan(payload);
       onComplete(result, formData);
       navigate("/dashboard");
+
     } catch (error) {
       alert("Error generating plan: " + error.message);
       setIsSubmitting(false);
     }
-  };
+};
 
   if (isSubmitting) {
     return (

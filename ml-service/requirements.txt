@@ -1,7 +1,24 @@
-fastapi>=0.115.0
-uvicorn[standard]>=0.32.0
-pandas>=2.2.0
-numpy>=2.0.0
-pydantic>=2.0.0
-scikit-learn>=1.7.2
-joblib>=1.5.0
+# FinPlan ML Service
+# Python: 3.11.x
+#
+# IMPORTANT:
+# The trained risk_model.joblib was created with
+# scikit-learn 1.7.2. Do not upgrade scikit-learn
+# without retraining/re-exporting the model.
+
+fastapi==0.141.1
+uvicorn[standard]==0.52.3
+pydantic==2.13.4
+
+numpy==2.4.6
+pandas==3.0.5
+scikit-learn==1.7.2
+scipy==1.17.1
+joblib==1.5.3
+
+matplotlib==3.11.1
+seaborn==0.13.2
+xgboost==3.2.0
+
+pytest==9.1.1
+httpx==0.28.1

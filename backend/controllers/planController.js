@@ -1,8 +1,10 @@
 const {
-    generateFinancialPlan
+    generateFinancialPlan,
+    predictRiskProfile
 } = require("../services/mlService");
 const {
-    analyzeFinancialPlan
+    analyzeFinancialPlan,
+    generateDeterministicAnalysis
 } = require("../services/geminiService");
 
 const generatePlan = async (req, res) => {
@@ -10,15 +12,21 @@ const generatePlan = async (req, res) => {
         const customerData = req.body;
         
         // Ensure customer data is associated with the authenticated user
-        customerData.customer_id = req.user._id.toString();
+        if (req.user && req.user._id) {
+            customerData.customer_id = req.user._id.toString();
+        }
 
-        const mlResult = await generateFinancialPlan(
-            customerData
-        );
+        // Call ML Service to generate data-driven financial plan
+        const mlResult = await generateFinancialPlan(customerData);
 
-        
-
-        const geminiAnalysis = await analyzeFinancialPlan(mlResult);
+        // Run Gemini natural language analysis (or resilient fallback)
+        let geminiAnalysis;
+        try {
+            geminiAnalysis = await analyzeFinancialPlan(mlResult);
+        } catch (geminiError) {
+            console.warn("Gemini Analysis Warning:", geminiError.message);
+            geminiAnalysis = generateDeterministicAnalysis(mlResult);
+        }
 
         res.status(200).json({
             success: true,
@@ -35,6 +43,21 @@ const generatePlan = async (req, res) => {
     }
 };
 
+const getRiskPrediction = async (req, res) => {
+    try {
+        const customerData = req.body;
+        const result = await predictRiskProfile(customerData);
+        res.status(200).json(result);
+    } catch (error) {
+        console.error("Predict Risk Error:", error);
+        res.status(500).json({
+            success: false,
+            message: error.message
+        });
+    }
+};
+
 module.exports = {
-    generatePlan
+    generatePlan,
+    getRiskPrediction
 };

@@ -8,7 +8,7 @@ import numpy as np
 import pandas as pd
 from sklearn.base import BaseEstimator, TransformerMixin
 from sklearn.compose import ColumnTransformer
-from sklearn.preprocessing import OneHotEncoder, RobustScaler
+from sklearn.preprocessing import OneHotEncoder, StandardScaler, RobustScaler
 
 
 RAW_NUMERICAL_COLS = [
@@ -54,10 +54,12 @@ class FinancialRatioTransformer(BaseEstimator, TransformerMixin):
 
     def transform(self, X: Union[pd.DataFrame, np.ndarray]) -> pd.DataFrame:
         if isinstance(X, np.ndarray):
+            # If passed as ndarray, construct DataFrame if possible or assume structured columns
             df = pd.DataFrame(X, columns=RAW_NUMERICAL_COLS + RAW_CATEGORICAL_COLS)
         else:
             df = X.copy()
 
+        # Extract underlying numeric series with safe denominators
         income = df["monthly_income"].astype(float).clip(lower=1.0)
         expenses = df["monthly_expenses"].astype(float).clip(lower=0.0)
         debt = df["monthly_debt_payment"].astype(float).clip(lower=0.0)
@@ -75,17 +77,20 @@ class FinancialRatioTransformer(BaseEstimator, TransformerMixin):
         goal_amt = df["goal_amount"].astype(float).clip(lower=1.0)
         goal_savings = df["current_goal_savings"].astype(float).clip(lower=0.0)
 
+        # 1. Cashflow ratios
         monthly_savings = (income - expenses - debt).clip(lower=-income)
         savings_rate = (monthly_savings / income) * 100.0
         expense_to_income = (expenses / income) * 100.0
         debt_to_income = (debt / income) * 100.0
 
+        # 2. Liquidity & Solvency
         emergency_coverage_months = (cash + emergency) / expenses.clip(lower=1000.0)
         liquid_assets = cash + investments
         net_worth = tot_assets - tot_liab
         liquid_net_worth = liquid_assets - tot_liab
         asset_to_liability_ratio = tot_assets / tot_liab.clip(lower=1000.0)
 
+        # 3. Protection & Horizon
         insurance_to_annual_income = insurance / (income * 12.0)
         goal_funding_gap_ratio = (goal_amt - goal_savings).clip(lower=0.0) / goal_amt
         age_x_horizon = age * horizon
@@ -110,6 +115,9 @@ class FinancialRatioTransformer(BaseEstimator, TransformerMixin):
 
 
 def build_preprocessor_pipeline(categorical_cols: List[str] = None, numerical_cols: List[str] = None) -> ColumnTransformer:
+    """
+    Constructs a ColumnTransformer that properly one-hot encodes categoricals and scales numerical features.
+    """
     if categorical_cols is None:
         categorical_cols = RAW_CATEGORICAL_COLS
     if numerical_cols is None:
@@ -130,8 +138,16 @@ def build_preprocessor_pipeline(categorical_cols: List[str] = None, numerical_co
 
     preprocessor = ColumnTransformer(
         transformers=[
-            ("num", RobustScaler(), numerical_cols),
-            ("cat", OneHotEncoder(handle_unknown="ignore", sparse_output=False), categorical_cols),
+            (
+                "num",
+                RobustScaler(),
+                numerical_cols
+            ),
+            (
+                "cat",
+                OneHotEncoder(handle_unknown="ignore", sparse_output=False),
+                categorical_cols
+            )
         ],
         remainder="drop"
     )
@@ -141,8 +157,7 @@ def build_preprocessor_pipeline(categorical_cols: List[str] = None, numerical_co
 
 def extract_features_from_dict(customer_data: Dict[str, Any]) -> pd.DataFrame:
     """
-    Converts a customer request into a single-row DataFrame for ML inference.
-    Uses risk_tolerance (categorical), not the frontend numerical risk_score.
+    Converts a single customer request dictionary into a single-row DataFrame ready for transformation.
     """
     row = {
         "age": float(customer_data.get("age", 30)),

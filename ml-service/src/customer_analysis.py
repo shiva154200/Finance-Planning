@@ -1,8 +1,6 @@
 from pathlib import Path
 import pandas as pd
 
-from src.risk_model import predict_ml_final_risk
-
 
 BASE_DIR = Path(__file__).resolve().parent.parent
 DATASET_DIR = BASE_DIR / "datasets"
@@ -285,17 +283,16 @@ def analyze_customer(customer):
         )
     )
 
-    # Final risk profile (ML when artifact present, else rule-based blend)
+    # Final risk profile
 
-    ml_final_risk = predict_ml_final_risk(customer)
-
-    if ml_final_risk is not None:
-        final_risk = ml_final_risk
-    else:
-        final_risk = calculate_final_risk(
-            risk_tolerance["risk_tolerance_score"],
+    final_risk = (
+        calculate_final_risk(
+            risk_tolerance[
+                "risk_tolerance_score"
+            ],
             risk_capacity
         )
+    )
 
     # Financial goal
 

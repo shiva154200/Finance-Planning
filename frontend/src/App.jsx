@@ -12,17 +12,6 @@ function App() {
   const [user, setUser] = useState(null);
   const [isAuthLoading, setIsAuthLoading] = useState(true);
   const [planData, setPlanData] = useState(null);
-  const [profileFormData, setProfileFormData] = useState(null);
-
-  const handlePlanComplete = (result, formData) => {
-    setPlanData(result);
-    setProfileFormData(formData);
-  };
-
-  const handleResetPlan = () => {
-    setPlanData(null);
-    setProfileFormData(null);
-  };
 
   useEffect(() => {
     const checkAuth = async () => {
@@ -56,7 +45,6 @@ function App() {
     localStorage.removeItem("token");
     setUser(null);
     setPlanData(null);
-    setProfileFormData(null);
   };
 
   if (isAuthLoading) {
@@ -82,29 +70,11 @@ function App() {
           {/* Protected Routes */}
           <Route 
             path="/form" 
-            element={
-              user ? (
-                <FormPage
-                  onComplete={handlePlanComplete}
-                  initialFormData={profileFormData}
-                />
-              ) : (
-                <Navigate to="/login" replace />
-              )
-            } 
+            element={user ? <FormPage onComplete={setPlanData} /> : <Navigate to="/login" replace />} 
           />
           <Route 
             path="/dashboard" 
-            element={
-              user ? (
-                <DashboardPage
-                  data={planData}
-                  onReset={handleResetPlan}
-                />
-              ) : (
-                <Navigate to="/login" replace />
-              )
-            } 
+            element={user ? <DashboardPage data={planData} onReset={() => setPlanData(null)} /> : <Navigate to="/login" replace />} 
           />
         </Route>
       </Routes>

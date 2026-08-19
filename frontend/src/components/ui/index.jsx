@@ -63,30 +63,17 @@ const Button = React.forwardRef(({ className, variant = "default", size = "defau
 });
 Button.displayName = "Button";
 
-const Input = React.forwardRef(({ className, type, onWheel, ...props }, ref) => {
-  const handleWheel = (event) => {
-    if (type === "number") {
-      event.currentTarget.blur();
-    }
-
-    onWheel?.(event);
-  };
-
-  return (
-    <input
-      type={type}
-      className={cn(
-        "flex h-11 w-full rounded-lg border border-slate-300 bg-white px-4 py-2 text-sm transition-all duration-200 ring-offset-white file:border-0 file:bg-transparent file:text-sm file:font-medium placeholder:text-slate-400 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-indigo-500 focus-visible:border-indigo-500 hover:border-slate-400 disabled:cursor-not-allowed disabled:opacity-50",
-        type === "number" &&
-          "[appearance:textfield] [-moz-appearance:textfield] [&::-webkit-outer-spin-button]:appearance-none [&::-webkit-inner-spin-button]:appearance-none",
-        className
-      )}
-      ref={ref}
-      onWheel={handleWheel}
-      {...props}
-    />
-  );
-});
+const Input = React.forwardRef(({ className, type, ...props }, ref) => (
+  <input
+    type={type}
+    className={cn(
+      "flex h-11 w-full rounded-lg border border-slate-300 bg-white px-4 py-2 text-sm transition-all duration-200 ring-offset-white file:border-0 file:bg-transparent file:text-sm file:font-medium placeholder:text-slate-400 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-indigo-500 focus-visible:border-indigo-500 hover:border-slate-400 disabled:cursor-not-allowed disabled:opacity-50",
+      className
+    )}
+    ref={ref}
+    {...props}
+  />
+));
 Input.displayName = "Input";
 
 const Label = React.forwardRef(({ className, ...props }, ref) => (

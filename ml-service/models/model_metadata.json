@@ -1,0 +1,39 @@
+{
+  "model_version": "risk-model-v1.0.0",
+  "training_date": "2026-08-17T07:25:08.892184+00:00",
+  "model_type": "Calibrated Random Forest Classifier + Gradient Boosting Regressor",
+  "dataset": "customer_financial_profiles_v2.csv",
+  "total_samples": 2500,
+  "train_samples": 2000,
+  "test_samples": 500,
+  "classes": [
+    "Conservative",
+    "Moderately Conservative",
+    "Moderate",
+    "Moderately Aggressive",
+    "Aggressive"
+  ],
+  "metrics": {
+    "test_accuracy": 0.866,
+    "test_macro_f1": 0.7972,
+    "test_weighted_f1": 0.8646,
+    "brier_score": 0.1741,
+    "roc_auc_ovr": 0.9816,
+    "regressor_mae": 1.0841,
+    "regressor_rmse": 1.5348,
+    "regressor_r2": 0.9892
+  },
+  "top_features": {
+    "risk_tolerance_Conservative": 0.1324,
+    "time_horizon_years": 0.0728,
+    "risk_tolerance_Moderately Aggressive": 0.0636,
+    "risk_tolerance_Moderate": 0.0606,
+    "risk_tolerance_Moderately Conservative": 0.0558,
+    "risk_tolerance_Aggressive": 0.0388,
+    "engineered_savings_rate": 0.0244,
+    "engineered_dti": 0.0138,
+    "investment_experience_Beginner": 0.0072,
+    "engineered_human_capital_horizon": 0.0034
+  },
+  "confidence_threshold_safety": 0.45
+}

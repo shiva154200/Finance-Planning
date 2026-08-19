@@ -1,0 +1,404 @@
+{
+  "dataset_name": "customer_financial_profiles.csv",
+  "rows": 500,
+  "columns": 29,
+  "column_names": [
+    "customer_id",
+    "age",
+    "occupation",
+    "dependents",
+    "monthly_income",
+    "monthly_expenses",
+    "monthly_debt_payment",
+    "monthly_savings",
+    "cash_savings",
+    "existing_investments",
+    "property_value",
+    "other_assets",
+    "total_assets",
+    "total_liabilities",
+    "net_worth",
+    "emergency_fund",
+    "insurance_coverage",
+    "credit_score",
+    "risk_tolerance",
+    "investment_experience",
+    "risk_score",
+    "financial_goal",
+    "goal_amount",
+    "current_goal_savings",
+    "goal_gap",
+    "time_horizon_years",
+    "preferred_investment",
+    "savings_rate",
+    "debt_to_income_ratio"
+  ],
+  "data_types": {
+    "customer_id": "object",
+    "age": "int64",
+    "occupation": "object",
+    "dependents": "int64",
+    "monthly_income": "int64",
+    "monthly_expenses": "int64",
+    "monthly_debt_payment": "int64",
+    "monthly_savings": "int64",
+    "cash_savings": "int64",
+    "existing_investments": "int64",
+    "property_value": "int64",
+    "other_assets": "int64",
+    "total_assets": "int64",
+    "total_liabilities": "int64",
+    "net_worth": "int64",
+    "emergency_fund": "int64",
+    "insurance_coverage": "int64",
+    "credit_score": "int64",
+    "risk_tolerance": "object",
+    "investment_experience": "object",
+    "risk_score": "float64",
+    "financial_goal": "object",
+    "goal_amount": "int64",
+    "current_goal_savings": "int64",
+    "goal_gap": "int64",
+    "time_horizon_years": "int64",
+    "preferred_investment": "object",
+    "savings_rate": "float64",
+    "debt_to_income_ratio": "float64"
+  },
+  "missing_values": {},
+  "duplicate_rows": 0,
+  "unique_customers": 500,
+  "class_distributions": {
+    "risk_tolerance": {
+      "Moderate": 249,
+      "Conservative": 149,
+      "Aggressive": 102
+    },
+    "investment_experience": {
+      "Intermediate": 231,
+      "Beginner": 194,
+      "Advanced": 75
+    },
+    "financial_goal": {
+      "Wealth Creation": 144,
+      "Retirement": 127,
+      "Child Education": 74,
+      "Buy House": 73,
+      "Emergency Fund": 32,
+      "Higher Education": 26,
+      "Travel": 24
+    },
+    "occupation": {
+      "Government Employee": 54,
+      "Software Engineer": 53,
+      "Sales Executive": 52,
+      "Designer": 52,
+      "Accountant": 50,
+      "Bank Employee": 49,
+      "Teacher": 49,
+      "Business Owner": 49,
+      "Freelancer": 48,
+      "Doctor": 44
+    }
+  },
+  "financial_consistency": {
+    "asset_sum_mismatches": 0,
+    "savings_mismatches": 1,
+    "negative_cashflow_rows": 1
+  },
+  "correlations_with_raw_risk_score": {
+    "age": -0.0222,
+    "dependents": 0.0635,
+    "monthly_income": -0.0023,
+    "monthly_expenses": 0.0071,
+    "monthly_debt_payment": 0.0127,
+    "monthly_savings": -0.0186,
+    "cash_savings": -0.0167,
+    "existing_investments": -0.0119,
+    "property_value": 0.0748,
+    "other_assets": 0.0574,
+    "total_assets": 0.0673,
+    "total_liabilities": 0.0061,
+    "net_worth": 0.0829,
+    "emergency_fund": 0.0279,
+    "insurance_coverage": 0.0364,
+    "credit_score": -0.0265,
+    "risk_score": 1.0,
+    "goal_amount": -0.0782,
+    "current_goal_savings": -0.0421,
+    "goal_gap": -0.0766,
+    "time_horizon_years": -0.0334,
+    "savings_rate": -0.0253,
+    "debt_to_income_ratio": 0.0121
+  },
+  "numerical_summary": {
+    "age": {
+      "mean": 40.83,
+      "std": 11.75,
+      "min": 21.0,
+      "p25": 30.0,
+      "median": 41.0,
+      "p75": 51.0,
+      "max": 60.0
+    },
+    "dependents": {
+      "mean": 1.81,
+      "std": 1.25,
+      "min": 0.0,
+      "p25": 1.0,
+      "median": 2.0,
+      "p75": 3.0,
+      "max": 4.0
+    },
+    "monthly_income": {
+      "mean": 85042.93,
+      "std": 33890.89,
+      "min": 25403.0,
+      "p25": 60931.25,
+      "median": 76015.0,
+      "p75": 101533.5,
+      "max": 199420.0
+    },
+    "monthly_expenses": {
+      "mean": 43102.71,
+      "std": 19194.77,
+      "min": 10000.0,
+      "p25": 29497.5,
+      "median": 38437.5,
+      "p75": 54473.75,
+      "max": 113342.0
+    },
+    "monthly_debt_payment": {
+      "mean": 10491.97,
+      "std": 7654.16,
+      "min": 0.0,
+      "p25": 5302.5,
+      "median": 9300.5,
+      "p75": 13892.75,
+      "max": 50551.0
+    },
+    "monthly_savings": {
+      "mean": 31450.31,
+      "std": 16798.09,
+      "min": 0.0,
+      "p25": 19961.75,
+      "median": 28400.0,
+      "p75": 38943.75,
+      "max": 116388.0
+    },
+    "cash_savings": {
+      "mean": 598680.81,
+      "std": 347616.17,
+      "min": 87964.0,
+      "p25": 337524.0,
+      "median": 518116.5,
+      "p75": 784230.75,
+      "max": 2036431.0
+    },
+    "existing_investments": {
+      "mean": 1410758.82,
+      "std": 907489.34,
+      "min": 150711.0,
+      "p25": 758003.0,
+      "median": 1204427.0,
+      "p75": 1856758.75,
+      "max": 5024180.0
+    },
+    "property_value": {
+      "mean": 2376313.57,
+      "std": 2736821.61,
+      "min": 0.0,
+      "p25": 0.0,
+      "median": 1038973.5,
+      "p75": 4686931.5,
+      "max": 7985562.0
+    },
+    "other_assets": {
+      "mean": 340122.03,
+      "std": 249204.81,
+      "min": 2151.0,
+      "p25": 140556.25,
+      "median": 290234.5,
+      "p75": 475925.75,
+      "max": 1288703.0
+    },
+    "total_assets": {
+      "mean": 4725875.23,
+      "std": 3007776.97,
+      "min": 476612.0,
+      "p25": 2101444.5,
+      "median": 4006525.5,
+      "p75": 7254856.5,
+      "max": 14292132.0
+    },
+    "total_liabilities": {
+      "mean": 920357.64,
+      "std": 1014835.58,
+      "min": 0.0,
+      "p25": 188621.75,
+      "median": 491809.5,
+      "p75": 1394330.5,
+      "max": 4541816.0
+    },
+    "net_worth": {
+      "mean": 3805517.59,
+      "std": 2367473.01,
+      "min": 57963.0,
+      "p25": 1854023.5,
+      "median": 3311356.0,
+      "p75": 5493881.75,
+      "max": 14064742.0
+    },
+    "emergency_fund": {
+      "mean": 193737.26,
+      "std": 119951.0,
+      "min": 16741.0,
+      "p25": 103316.5,
+      "median": 169228.5,
+      "p75": 256531.0,
+      "max": 740783.0
+    },
+    "insurance_coverage": {
+      "mean": 2236562.08,
+      "std": 1928028.79,
+      "min": 0.0,
+      "p25": 0.0,
+      "median": 2077566.0,
+      "p75": 3462986.0,
+      "max": 9066048.0
+    },
+    "credit_score": {
+      "mean": 726.88,
+      "std": 52.07,
+      "min": 583.0,
+      "p25": 691.0,
+      "median": 726.0,
+      "p75": 760.0,
+      "max": 850.0
+    },
+    "risk_score": {
+      "mean": 6.09,
+      "std": 2.12,
+      "min": 2.3,
+      "p25": 4.0,
+      "median": 6.2,
+      "p75": 7.1,
+      "max": 10.0
+    },
+    "goal_amount": {
+      "mean": 4777123.4,
+      "std": 2536801.16,
+      "min": 208936.0,
+      "p25": 3008277.75,
+      "median": 4651862.0,
+      "p75": 6760104.25,
+      "max": 9982792.0
+    },
+    "current_goal_savings": {
+      "mean": 813419.93,
+      "std": 538931.85,
+      "min": 26238.0,
+      "p25": 422526.0,
+      "median": 717616.5,
+      "p75": 1106507.75,
+      "max": 2921971.0
+    },
+    "goal_gap": {
+      "mean": 3963703.47,
+      "std": 2293512.19,
+      "min": 127752.0,
+      "p25": 2190965.25,
+      "median": 3818626.0,
+      "p75": 5652053.0,
+      "max": 9262626.0
+    },
+    "time_horizon_years": {
+      "mean": 9.62,
+      "std": 3.34,
+      "min": 3.0,
+      "p25": 7.0,
+      "median": 9.0,
+      "p75": 13.0,
+      "max": 15.0
+    },
+    "savings_rate": {
+      "mean": 37.0,
+      "std": 12.32,
+      "min": 0.0,
+      "p25": 28.26,
+      "median": 36.96,
+      "p75": 45.83,
+      "max": 65.51
+    },
+    "debt_to_income_ratio": {
+      "mean": 12.27,
+      "std": 6.56,
+      "min": 0.0,
+      "p25": 7.51,
+      "median": 12.16,
+      "p75": 17.08,
+      "max": 29.46
+    }
+  },
+  "historical_data": {
+    "rows": 500,
+    "columns": 16,
+    "asset_returns_covariance": {
+      "equity_return": {
+        "equity_return": 65.99397175911824,
+        "debt_return": -0.5022172184368735,
+        "gold_return": -1.283342838877755,
+        "fd_return": -0.492861664529058
+      },
+      "debt_return": {
+        "equity_return": -0.5022172184368735,
+        "debt_return": 1.3367103807615233,
+        "gold_return": 0.2935922324649298,
+        "fd_return": 0.7768214108216432
+      },
+      "gold_return": {
+        "equity_return": -1.283342838877755,
+        "debt_return": 0.2935922324649298,
+        "gold_return": 16.176985511422846,
+        "fd_return": 0.6407466697394789
+      },
+      "fd_return": {
+        "equity_return": -0.492861664529058,
+        "debt_return": 0.7768214108216432,
+        "gold_return": 0.6407466697394789,
+        "fd_return": 0.9775475474949902
+      }
+    },
+    "asset_returns_correlation": {
+      "equity_return": {
+        "equity_return": 1.0,
+        "debt_return": -0.053471307613653596,
+        "gold_return": -0.03927731213102046,
+        "fd_return": -0.06136262939512765
+      },
+      "debt_return": {
+        "equity_return": -0.053471307613653596,
+        "debt_return": 1.0,
+        "gold_return": 0.06313600568507928,
+        "fd_return": 0.6795690346424936
+      },
+      "gold_return": {
+        "equity_return": -0.03927731213102046,
+        "debt_return": 0.06313600568507928,
+        "gold_return": 1.0,
+        "fd_return": 0.1611271087137149
+      },
+      "fd_return": {
+        "equity_return": -0.06136262939512765,
+        "debt_return": 0.6795690346424936,
+        "gold_return": 0.1611271087137149,
+        "fd_return": 1.0
+      }
+    }
+  },
+  "findings": [
+    "Dataset has 500 rows, zero missing values, zero duplicates.",
+    "Raw risk_score (1-10) is heavily tied to the categorical risk_tolerance string with near-zero correlation to financial capacity metrics.",
+    "A weakly-supervised financial suitability framework (Option B) is required to combine objective financial capacity (DTI, savings rate, liquidity, net worth, age) with behavioral risk willingness into a continuous suitability score (0-100) and 5 standard risk classes.",
+    "Historical returns dataset provides empirical asset covariance structure for portfolio volatility calculation."
+  ]
+}

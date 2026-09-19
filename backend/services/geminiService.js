@@ -1,6 +1,6 @@
 const { GoogleGenAI, Type } = require("@google/genai");
 
-const API_KEY = process.env.Gemini_API_Key;
+const API_KEY = process.env.Gemini_Api_Key;
 
 if (!API_KEY) {
     console.error("Gemini API key is missing from .env");

@@ -944,7 +944,7 @@ const analyzeFinancialPlan = async (mlResult) => {
         const prompt = buildGeminiPrompt(mlResult);
 
         const response = await ai.models.generateContent({
-            model: "gemini-3.5-flash",
+            model: "gemini-3.5-flash-lite",
 
             contents: prompt,
 
